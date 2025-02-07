@@ -60,15 +60,32 @@
             transition: transform 0.3s ease;
             background: white;
             padding: 20px;
+            animation: pulse 1.5s infinite alternate;
         }
-        .grid a:hover {
-            transform: scale(1.1);
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
         }
         .grid img {
             width: 400px;
             height: auto;
             object-fit: cover;
             border-radius: 10px;
+        }
+        #counter {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff3b3b;
+            background: black;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 10px #ff3b3b;
         }
         #news {
             position: absolute;
@@ -115,6 +132,7 @@
                 <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png" alt="Amazon">
             </a>
         </div>
+        <div id="counter">000000</div>
     </div>
     <script>
         async function fetchNews() {
@@ -145,7 +163,16 @@
             }
         }
         fetchNews();
+
+        function updateCounter() {
+            let counter = document.getElementById('counter');
+            let count = parseInt(counter.textContent) || 0;
+            setInterval(() => {
+                count += Math.floor(Math.random() * 10 + 1);
+                counter.textContent = count.toString().padStart(6, '0');
+            }, 2000);
+        }
+        updateCounter();
     </script>
 </body>
 </html>
-
