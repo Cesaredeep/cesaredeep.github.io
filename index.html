@@ -56,6 +56,8 @@
             border-radius: 10px;
             overflow: hidden;
             transition: transform 0.3s ease;
+            background: white;
+            padding: 10px;
         }
         .grid a:hover {
             transform: scale(1.05);
@@ -69,7 +71,7 @@
         #news {
             position: absolute;
             top: 10px;
-            left: 10px;
+            right: 10px;
             width: 250px;
             height: 90vh;
             overflow-y: auto;
@@ -102,12 +104,14 @@
     </video>
     <div id="news">
         <h2>Notizie Locali</h2>
-        <ul id="newsList"></ul>
+        <ul id="newsList">Caricamento notizie...</ul>
     </div>
     <div class="container">
         <h1>Benvenuto nel Futuro</h1>
         <div class="grid">
-            <a href="https://amzn.to/4aQclzS" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon"></a>
+            <a href="https://amzn.to/4aQclzS" target="_blank">
+                <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonBusiness/AB_services/AB_Logo._CB424371301_.png" alt="Amazon">
+            </a>
         </div>
     </div>
     <script>
@@ -128,9 +132,11 @@
                 });
             } catch (error) {
                 console.error('Errore nel recupero delle notizie:', error);
+                document.getElementById('newsList').innerHTML = '<li>Impossibile caricare le notizie.</li>';
             }
         }
         fetchNews();
     </script>
 </body>
 </html>
+
