@@ -77,15 +77,17 @@
             border-radius: 10px;
         }
         #counter {
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
             color: #ff3b3b;
             background: black;
-            padding: 15px;
+            padding: 15px 25px;
             border-radius: 10px;
             margin-top: 20px;
             font-family: 'Courier New', Courier, monospace;
-            text-shadow: 0 0 10px #ff3b3b;
+            text-shadow: 0 0 10px #ff3b3b, 0 0 20px #ff8c00, 0 0 30px #ff0000;
+            display: inline-block;
+            border: 2px solid #ff8c00;
         }
         #news {
             position: absolute;
@@ -132,44 +134,16 @@
                 <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png" alt="Amazon">
             </a>
         </div>
-        <div id="counter">000000</div>
+        <div id="counter">88:88:88</div>
     </div>
     <script>
-        async function fetchNews() {
-            try {
-                let response = await fetch('https://gnews.io/api/v4/top-headlines?lang=it&country=it&token=YOUR_GNEWS_API_KEY');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                let data = await response.json();
-                let newsList = document.getElementById('newsList');
-                newsList.innerHTML = '';
-                if (data.articles && data.articles.length > 0) {
-                    data.articles.slice(0, 5).forEach(article => {
-                        let li = document.createElement('li');
-                        let a = document.createElement('a');
-                        a.href = article.url;
-                        a.target = '_blank';
-                        a.textContent = article.title;
-                        li.appendChild(a);
-                        newsList.appendChild(li);
-                    });
-                } else {
-                    newsList.innerHTML = '<li>Nessuna notizia disponibile al momento.</li>';
-                }
-            } catch (error) {
-                console.error('Errore nel recupero delle notizie:', error);
-                document.getElementById('newsList').innerHTML = '<li>Impossibile caricare le notizie.</li>';
-            }
-        }
-        fetchNews();
-
         function updateCounter() {
             let counter = document.getElementById('counter');
-            let count = parseInt(counter.textContent) || 0;
             setInterval(() => {
-                count += Math.floor(Math.random() * 10 + 1);
-                counter.textContent = count.toString().padStart(6, '0');
+                let hours = String(Math.floor(Math.random() * 24)).padStart(2, '0');
+                let minutes = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+                let seconds = String(Math.floor(Math.random() * 60)).padStart(2, '0');
+                counter.textContent = `${hours}:${minutes}:${seconds}`;
             }, 2000);
         }
         updateCounter();
