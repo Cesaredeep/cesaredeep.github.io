@@ -22,6 +22,7 @@
             text-align: center;
             flex-direction: column;
             position: relative;
+            padding: 20px;
         }
         video {
             position: fixed;
@@ -36,14 +37,16 @@
             position: relative;
             z-index: 1;
             background: rgba(0, 0, 0, 0.6);
-            padding: 40px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: fadeIn 1.5s ease-in-out;
             max-width: 90vw;
+            width: 100%;
+            text-align: center;
         }
         h1 {
-            font-size: 3.5em;
+            font-size: 2.5em;
             font-weight: 700;
             margin-bottom: 20px;
             text-transform: uppercase;
@@ -59,7 +62,7 @@
             overflow: hidden;
             transition: transform 0.3s ease;
             background: white;
-            padding: 20px;
+            padding: 10px;
             animation: pulse 1.5s infinite alternate;
         }
         @keyframes pulse {
@@ -71,17 +74,18 @@
             }
         }
         .grid img {
-            width: 400px;
+            width: 100%;
+            max-width: 300px;
             height: auto;
             object-fit: cover;
             border-radius: 10px;
         }
         #counter {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
             color: #ff3b3b;
             background: black;
-            padding: 15px 25px;
+            padding: 10px 20px;
             border-radius: 10px;
             margin-top: 20px;
             font-family: 'Orbitron', sans-serif;
@@ -93,11 +97,13 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 250px;
-            height: 90vh;
+            width: 90vw;
+            max-width: 250px;
+            height: auto;
+            max-height: 80vh;
             overflow-y: auto;
             background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
             text-align: left;
         }
@@ -116,6 +122,28 @@
             color: white;
             text-decoration: none;
         }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            .container {
+                padding: 15px;
+            }
+            .grid img {
+                max-width: 250px;
+            }
+            #counter {
+                font-size: 1.5em;
+                padding: 8px 15px;
+            }
+            #news {
+                position: relative;
+                width: 100%;
+                max-width: none;
+                text-align: center;
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -123,10 +151,6 @@
         <source src="https://cdn.pixabay.com/video/2020/05/19/39692-425200289_large.mp4" type="video/mp4">
         Il tuo browser non supporta i video di sfondo.
     </video>
-    <div id="news">
-        <h2>Notizie Locali</h2>
-        <ul id="newsList">Caricamento notizie...</ul>
-    </div>
     <div class="container">
         <h1>Ben Ritrovati nel Presente!</h1>
         <div class="grid">
@@ -135,6 +159,10 @@
             </a>
         </div>
         <div id="counter">000000</div>
+        <div id="news">
+            <h2>Notizie Locali</h2>
+            <ul id="newsList">Caricamento notizie...</ul>
+        </div>
     </div>
     <script>
         function updateCounter() {
