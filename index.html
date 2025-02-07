@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvenuto nel Futuro</title>
+    <title>Ben Ritrovati nel Presente</title>
     <style>
         * {
             margin: 0;
@@ -52,18 +52,20 @@
             margin-top: 20px;
         }
         .grid a {
-            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 10px;
             overflow: hidden;
             transition: transform 0.3s ease;
             background: white;
-            padding: 10px;
+            padding: 20px;
         }
         .grid a:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         .grid img {
-            width: 300px;
+            width: 400px;
             height: auto;
             object-fit: cover;
             border-radius: 10px;
@@ -107,29 +109,36 @@
         <ul id="newsList">Caricamento notizie...</ul>
     </div>
     <div class="container">
-        <h1>Benvenuto nel Futuro</h1>
+        <h1>Ben Ritrovati nel Presente!</h1>
         <div class="grid">
             <a href="https://amzn.to/4aQclzS" target="_blank">
-                <img src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonBusiness/AB_services/AB_Logo._CB424371301_.png" alt="Amazon">
+                <img src="https://logos-world.net/wp-content/uploads/2020/04/Amazon-Logo.png" alt="Amazon">
             </a>
         </div>
     </div>
     <script>
         async function fetchNews() {
             try {
-                let response = await fetch('https://newsapi.org/v2/top-headlines?country=it&apiKey=YOUR_NEWSAPI_KEY');
+                let response = await fetch('https://gnews.io/api/v4/top-headlines?lang=it&country=it&token=YOUR_GNEWS_API_KEY');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
                 let data = await response.json();
                 let newsList = document.getElementById('newsList');
                 newsList.innerHTML = '';
-                data.articles.slice(0, 5).forEach(article => {
-                    let li = document.createElement('li');
-                    let a = document.createElement('a');
-                    a.href = article.url;
-                    a.target = '_blank';
-                    a.textContent = article.title;
-                    li.appendChild(a);
-                    newsList.appendChild(li);
-                });
+                if (data.articles && data.articles.length > 0) {
+                    data.articles.slice(0, 5).forEach(article => {
+                        let li = document.createElement('li');
+                        let a = document.createElement('a');
+                        a.href = article.url;
+                        a.target = '_blank';
+                        a.textContent = article.title;
+                        li.appendChild(a);
+                        newsList.appendChild(li);
+                    });
+                } else {
+                    newsList.innerHTML = '<li>Nessuna notizia disponibile al momento.</li>';
+                }
             } catch (error) {
                 console.error('Errore nel recupero delle notizie:', error);
                 document.getElementById('newsList').innerHTML = '<li>Impossibile caricare le notizie.</li>';
